@@ -1,11 +1,13 @@
 package inttime;
 
+import java.util.ArrayList;
 import java.util.TimeZone;
 
 public class DateAndTime {
 	
 	private static String[] zones = TimeZone.getAvailableIDs();
 	public static final String ZONE_NOT_FOUND = "NOTFOUND";
+	public static final String MULTI_FOUND = "MULTIFOUND";
 	
 	public static void printZones() {
 		for (String s : zones) {
@@ -15,7 +17,9 @@ public class DateAndTime {
 	
 	public static String findZone(String[] zone) {
 		StringBuilder sb = new StringBuilder();
+		ArrayList<String> al = new ArrayList<String>();
 		int i;
+		
 		for (i = 0; i < zone.length - 1; i++) {
 			sb.append(zone[i] + "_");
 		}
@@ -25,9 +29,21 @@ public class DateAndTime {
 		
 		for (String s : zones) {
 			if (s.toLowerCase().matches(".*/" + temp + ".*")) {
-				return s;
+				al.add(s);
 			}
 		}
-		return ZONE_NOT_FOUND;
+		
+		System.out.println("SB: "+ sb.toString());
+		
+		if (al.size() == 1) return al.get(0);
+		else if (al.size() > 1) {
+			System.out.println("--Search found multiple results--");
+			for (String s : al) {
+				System.out.println(s);
+			}
+			return MULTI_FOUND;
+		} else {
+			return ZONE_NOT_FOUND;
+		}
 	}
 }

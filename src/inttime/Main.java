@@ -20,7 +20,11 @@ public class Main {
 		
 		if (temp.compareTo(DateAndTime.ZONE_NOT_FOUND) == 0) {
 			System.out.println("TimeZone not found");
-		} else {
+		} else if (temp.compareTo(DateAndTime.MULTI_FOUND) == 0) {
+			return;
+		}
+		
+		else {
 			zone = TimeZone.getTimeZone(temp);
 			cal = Calendar.getInstance(zone);
 			System.out.println("The TimeZone in " + temp + " is " + zone.getDisplayName());
