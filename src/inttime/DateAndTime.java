@@ -5,19 +5,8 @@ import java.util.TimeZone;
 
 public class DateAndTime {
 	
-	private String time;
-	private Date date;
 	private static String[] zones = TimeZone.getAvailableIDs();
 	public static final String ZONE_NOT_FOUND = "NOTFOUND";
-	
-	public DateAndTime() {
-		date = new Date();
-		time = date.toString();	
-	}
-	
-	public void printDate() {
-		System.out.println(time);
-	}
 	
 	public static void printZones() {
 		for (String s : zones) {

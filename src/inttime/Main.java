@@ -8,17 +8,26 @@ public class Main {
 	
 	private static TimeZone zone;
 	private static Calendar cal;
-
+	
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		String input = scan.nextLine();
-		//DateAndTime dat = new DateAndTime();
 		scan.close();
 		
-		zone = TimeZone.getTimeZone(DateAndTime.findZone(input));
-		cal = Calendar.getInstance(zone);
-		System.out.println(zone.getDisplayName());
-
+		String temp = DateAndTime.findZone(input);
+		
+		if (temp.compareTo(DateAndTime.ZONE_NOT_FOUND) == 0) {
+			System.out.println("TimeZone not found");
+		} else {
+			zone = TimeZone.getTimeZone(temp);
+			cal = Calendar.getInstance(zone);
+			System.out.println("The TimeZone in " + temp+ " is " + zone.getDisplayName());
+			System.out.print("The local time is: ");
+			int hour = cal.get(Calendar.HOUR_OF_DAY);
+			boolean morning = (hour < 12);
+			System.out.println(hour + ":" + cal.get(Calendar.MINUTE)+":" 
+					+ cal.get(Calendar.SECOND) + (morning ? " a.m." : " p.m."));
+		}
 	}
 
 }
