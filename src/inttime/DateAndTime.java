@@ -1,6 +1,5 @@
 package inttime;
 
-import java.util.Date;
 import java.util.TimeZone;
 
 public class DateAndTime {
@@ -14,9 +13,18 @@ public class DateAndTime {
 		}
 	}
 	
-	public static String findZone(String zone) {
+	public static String findZone(String[] zone) {
+		StringBuilder sb = new StringBuilder();
+		int i;
+		for (i = 0; i < zone.length - 1; i++) {
+			sb.append(zone[i] + "_");
+		}
+		sb.append(zone[i]);
+		
+		String temp = sb.toString().toLowerCase();
+		
 		for (String s : zones) {
-			if (s.toLowerCase().matches(".*/" + zone.toLowerCase())) {
+			if (s.toLowerCase().matches(".*/" + temp + ".*")) {
 				return s;
 			}
 		}
