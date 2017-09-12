@@ -8,6 +8,7 @@ public class DateAndTime {
 	private static String[] zones = TimeZone.getAvailableIDs();
 	public static final String ZONE_NOT_FOUND = "NOTFOUND";
 	public static final String MULTI_FOUND = "MULTIFOUND";
+	public static final String EXIT = "EXITPROGRAM";
 	
 	public static void printZones() {
 		for (String s : zones) {
@@ -28,12 +29,10 @@ public class DateAndTime {
 		String temp = sb.toString().toLowerCase();
 		
 		for (String s : zones) {
-			if (s.toLowerCase().matches(".*/" + temp + ".*")) {
+			if (s.toLowerCase().matches(".*/.*" + temp + ".*")) {
 				al.add(s);
 			}
 		}
-		
-		System.out.println("SB: "+ sb.toString());
 		
 		if (al.size() == 1) return al.get(0);
 		else if (al.size() > 1) {
@@ -42,7 +41,10 @@ public class DateAndTime {
 				System.out.println(s);
 			}
 			return MULTI_FOUND;
-		} else {
+		} else if (zone[0].compareTo("exit") == 0) {
+			return EXIT;
+		}
+		else {
 			return ZONE_NOT_FOUND;
 		}
 	}
